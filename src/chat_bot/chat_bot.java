@@ -26,6 +26,18 @@ public class chat_bot {
         r5 = age2.nextInt();
         r7 = age3.nextInt();
         age = ((r3 * 70 + r5 * 21 + r7 * 15) % 105);
-        System.out.println("Your age is " + age +"; that`s a good time to start programming!");
+        System.out.println("Your age is " + age + "; that`s a good time to start programming!");
+
+
+        System.out.println("Now, i will prove u that i can count to ANY number u want");
+        System.out.println("enter number");
+        long number;
+        Scanner cauntScan = new Scanner(System.in);
+        number = cauntScan.nextInt();
+            for (long x = 0; x <= number; x++) {
+                if (x == number)
+                        break;
+                System.out.println(x + 1 + " !");
+            }
     }
 }
