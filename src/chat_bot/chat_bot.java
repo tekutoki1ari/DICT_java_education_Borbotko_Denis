@@ -61,6 +61,6 @@ public class chat_bot {
                 System.out.println("Great, u are right");
             }
         }
-        System.out.println("Goodbye, have a nice day!");
+        System.out.println("Goodbye, have a nice day!" );
     }
 }
