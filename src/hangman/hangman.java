@@ -22,13 +22,20 @@ public class hangman {
         while (attemps > 0) {
             System.out.printf("You life: %d\nGuess the word %s: ", attemps, String.valueOf(hiddenWordChar));
             char char_answer = userAnswer.nextLine().toCharArray()[0];
-            char[] hiddenWordChar_N = checkout(hiddenWordArray, hiddenWordChar, char_answer);
-            if (hiddenWordChar_N == null)
+            char[] hiddenWordChar_N = checkout(hiddenWordArray, hiddenWordChar.clone(), char_answer);
+            if (hiddenWordChar_N == null) {
                 attemps--;
+                System.out.println("That letter doesn`t appear in the word");
+            }
             else if (Arrays.equals(hiddenWordChar_N, hiddenWordArray)) {
                 System.out.println("You win!");
                 break;
-            } else hiddenWordChar = hiddenWordChar_N;
+            } else if (Arrays.equals(hiddenWordChar, hiddenWordChar_N)) {
+                System.out.println("No improvements");
+                attemps--;
+            } else if (!(boolean) Arrays.equals(hiddenWordChar_N, hiddenWordChar)) {
+                hiddenWordChar = hiddenWordChar_N.clone();
+            }
         }
         if (attemps <= 0)
             System.out.println("You lost!");
