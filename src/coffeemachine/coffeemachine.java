@@ -2,7 +2,6 @@ package coffeemachine;
 
 import java.util.Scanner;
 import java.util.*;
-// TODO switch - case x, assert == x
 class Settings {
     private int water = 400;
     private int milk = 540;
@@ -17,42 +16,16 @@ class Settings {
     public void fillIngredients(Scanner fillInput) {
         System.out.println("Write how many ml of water the coffee machine has:");
         this.water += fillInput.nextInt();
+
         System.out.println("Write how many ml of milk the coffee machine has:");
         this.milk += fillInput.nextInt();
+
         System.out.println("Write how many grams of coffee beans the coffee machine has:");
         this.beans += fillInput.nextInt();
+
         System.out.println("Write how many cups the coffee machine has:");
         this.cups += fillInput.nextInt();
 
-//        Scanner fillInput = new Scanner(System.in);
-//        int userAnswer = fillInput.nextInt();
-//        System.out.println("""
-//                Choose what u want to fill:>> 1 - for water
-//                2 - milk
-//                3 - beans
-//                4 - cups""");
-//        switch (userAnswer) {
-//            case 1:
-//                this.water += fillInput.nextInt();
-//            case 2:
-//                this.milk += fillInput.nextInt();
-//            case 3:
-//                this.beans += fillInput.nextInt();
-//            case 4:
-//                this.cups += fillInput.nextInt();
-//        }
-//        if (userAnswer == 1){
-//            this.water += input.nextInt();
-//    }
-//        else if (userAnswer == 2){
-//            this.milk += input.nextInt();
-//        }
-//        else if (userAnswer == 3){
-//            this.beans += input.nextInt();
-//        }
-//        else {
-//            this.cups += input.nextInt();
-//        }
     }
 
     public void showIngredients(){
@@ -84,6 +57,20 @@ class Settings {
             this.cups -= 1;
             this.beans -= beans;
             this.money += money;
+            System.out.println("I have enough resources,making you a coffee!");
+        }else{
+            if (checkWater()-water<0){
+                System.out.println("Sorry, not enough water");
+            }
+            if (checkMilk()-milk<0){
+                System.out.println("Sorry, not enough milk");
+            }
+            if (checkCups() == 0){
+                System.out.println("Sorry, not enough cups");
+            }
+            if(checkBeans()-beans<0){
+                System.out.println("Sorry, not enough beans");
+            }
         }
 
     }
@@ -96,30 +83,32 @@ public class coffeemachine {
         Settings machine = new Settings();
 
         Scanner fillInput = new Scanner(System.in);
-        machine.showIngredients();
+        while (true) {
+            System.out.println("Write action (buy, fill, take,remaining,exit):");
+            String action = fillInput.nextLine();
 
-        System.out.println("Write action (buy, fill, take):");
-        String userDesire = fillInput.nextLine();
-        if (Objects.equals(userDesire,"buy")){
-            System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-            int coffee = fillInput.nextInt();
-            if(coffee == 1){
-                machine.check(250,0,16, 4);
-            }
-            else if(coffee == 2){
-                machine.check(350,75,20, 7);
-            }
-            else if(coffee == 3){
-                machine.check(200,100,12, 6);
-            }
-            machine.showIngredients();
-        } else if (Objects.equals(userDesire,"fill")){
-            machine.fillIngredients(fillInput);
-            machine.showIngredients();
+            if (Objects.equals(action, "buy")) {
+                System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, 4 - back to main menu:");
+                int coffee = fillInput.nextInt();
+                switch (coffee) {
+                    case 1 -> machine.check(250, 0, 16, 4);
+                    case 2 -> machine.check(350, 75, 20, 7);
+                    case 3 -> machine.check(200, 100, 12, 6);
+                    case 4 -> { }
+                }
 
-        } else if (Objects.equals(userDesire,"take")) {
-            machine.take();
-            machine.showIngredients();
+            } else if (Objects.equals(action, "fill")) {
+                machine.fillIngredients(fillInput);
+
+            } else if (Objects.equals(action, "take")) {
+                machine.take();
+
+            } else if (Objects.equals(action, "remaining")) {
+                machine.showIngredients();
+
+            } else if (Objects.equals(action, "exit")) {
+                break;
+            }
         }
     }
 }
